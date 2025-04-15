@@ -7,17 +7,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
-    [SerializeField] Rigidbody2D rigidBody;
     public float movespeed=10f;
+    public Vector2 movement;
     [SerializeField] Animator animator;
-    [SerializeField] float followspeed;
     [SerializeField] float checkRadius = 0.5f;//检测半径 
     [SerializeField] LayerMask interactableLayer;//检测层级
     private IInteractable _currentInteractable;
     public static float hp1 = 100;
     public static float hp2 = 100;
     public int Weight = 0;
-
+    public bool CanUp = true;
     public float HP1
     {
         get => hp1;
@@ -105,7 +104,14 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        Vector2 movement = new Vector2(horizontal, vertical);
+        if (CanUp)
+        {
+            movement = new Vector2(horizontal, vertical);
+        }
+        else
+        {
+            movement = new Vector2(horizontal, 0);
+        }
         if (horizontal == 0 && vertical == 0)
         {
             animator.SetBool("Walk", false);
@@ -113,16 +119,16 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetBool("Walk", true);
-            if (movement.x > 0)
+            if (horizontal > 0)
             {
-                transform.localEulerAngles = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             }
-            else if (movement.x < 0)
+            else if (horizontal < 0)
             {
-                transform.localEulerAngles = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-0.3f, 0.3f, 0.3f);
             }
             //移动
-            rigidBody.velocity = Vector2.Lerp(rigidBody.velocity,movement*movespeed,followspeed);
+            transform.Translate(movement * (movespeed * Time.deltaTime));
         }
         
     }

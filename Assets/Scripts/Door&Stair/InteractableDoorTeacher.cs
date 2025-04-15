@@ -7,8 +7,7 @@ public class InteractableDoorTeacher : MonoBehaviour,IInteractable
 {
     public static InteractableDoorTeacher instance;
     [SerializeField] GameObject Player;
-    [SerializeField] GameObject Camera1;
-    [SerializeField] GameObject Camera2;
+    public Sprite DoorSprite;
     public bool canGo = true;
 
     public void Awake()
@@ -16,10 +15,22 @@ public class InteractableDoorTeacher : MonoBehaviour,IInteractable
         instance = this;
     }
 
+    public void Start()
+    {
+        if (canGo == false)
+        {
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = DoorSprite;
+        }
+    }
+
     public void Interact()
     {
-        Player.transform.position = new Vector3(8.73f, -17.24f, 0f);
-        CameraController.instance.number = 1;
+        if (canGo)
+        {
+            Player.transform.position = new Vector3(8.73f, -17.24f, 0f);
+            CameraController.instance.number = 1;
+        }
     }
 
     public void UIShowInteract()

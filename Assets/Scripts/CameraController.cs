@@ -13,14 +13,21 @@ public class CameraController : MonoBehaviour
     
     
     public Vector3[] maxvec = new Vector3[4];
-    
+
+    private void Awake()
+    {
+        
+    }
+
     private void Start()
     {
         instance = this;
-        minvec[0] = new Vector3(16.34f, 3.42f, -10f);
-        maxvec[0]= new Vector3(91.18f,0.667f, -10f);
-        minvec[1] = new Vector3(7.644f,-19.855f, -10f);
-        maxvec[1]= new Vector3(26.16f,-10.15f, -10f);
+        minvec[0] = new Vector3(16.34f, 3.4f, -10f);
+        maxvec[0]= new Vector3(115.91f,3.4f, -10f);
+        minvec[1] = new Vector3(16.33f,-15f, -10f);
+        maxvec[1]= new Vector3(122.8f,-15f, -10f);
+        minvec[2] = new Vector3(16.33f,-30f, -10f);
+        maxvec[2]= new Vector3(70.9f,-30f, -10f);
     }
 
     private void LateUpdate()

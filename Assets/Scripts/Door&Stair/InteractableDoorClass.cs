@@ -7,19 +7,32 @@ public class InteractableDoorClass : MonoBehaviour,IInteractable
 {
     public static InteractableDoorClass instance;
     [SerializeField] GameObject Player;
-    [SerializeField] GameObject Camera1;
-    [SerializeField] GameObject Camera2;
-    private bool canGo = true;
+    public Sprite DoorSprite;
+    public bool canGo = true;
 
     public void Awake()
     {
         instance = this;
     }
 
+    public void Start()
+    {
+        if (canGo == false)
+        {
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = DoorSprite;
+        }
+    }
+
     public void Interact()
     {
-        Player.transform.position = new Vector3(8.73f, -17.24f, 0f);
-        CameraController.instance.number = 1;
+        if (canGo)
+        {
+            Player.transform.position = new Vector3(8.73f, -16.64f, 0f);
+            PlayerController.Instance.CanUp = false;
+            CameraController.instance.number = 1;
+        }
+        
     }
 
     public void UIShowInteract()

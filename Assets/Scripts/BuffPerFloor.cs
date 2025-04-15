@@ -15,11 +15,26 @@ public class BuffPerFloor : MonoBehaviour
     public string[] names = new string[10];
     public string[] descriptions = new string[10];
     public GameObject Buffintroduction;
-    public GameObject camera;
+    public new GameObject camera;
 
     private void Awake()
     {
         instance = this;
+        int Rand2 = random.Next(1, 3);
+        Rand2 = 3;
+        Debug.Log(Rand2);
+        switch (Rand2)
+        {
+            case 1:
+                InteractableDoorClass.instance.canGo = false;
+                break;
+            case 2:
+                InteractableDoorInfirmary.instance.canGo = false;
+                break;
+            case 3:
+                InteractableDoorTeacher.instance.canGo = false;
+                break;
+        }
     }
 
     void Start()
